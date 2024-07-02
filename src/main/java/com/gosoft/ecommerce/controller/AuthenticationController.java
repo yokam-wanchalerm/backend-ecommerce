@@ -1,5 +1,7 @@
 package com.gosoft.ecommerce.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gosoft.ecommerce.dto.LoginUserDto;
 import com.gosoft.ecommerce.dto.RegisterUserDto;
 import com.gosoft.ecommerce.entity.User;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 @RequestMapping("/auth")
 @RestController
@@ -34,8 +38,9 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginUserDto loginUserDto) {
         User authenticatedUser = authenticationService.authenticate(loginUserDto);
-
-        String jwtToken = jwtService.generateToken(authenticatedUser);
+        Map<String, Object> map = new ObjectMapper().convertValue(authenticatedUser, new TypeReference<>() {
+        });
+        String jwtToken = jwtService.generateToken(map,authenticatedUser);
 
         LoginResponse loginResponse = new LoginResponse(jwtToken,jwtService.getExpirationTime());
 
