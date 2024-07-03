@@ -26,10 +26,11 @@ public class UserService {
     }
 
     public List<User> searchUsers(String search) {
-        if (search != null){
+        if (search != null && !search.isBlank() && !search.isEmpty()){
             return userRepository.findByEmailOrFirstNameOrLastNameLike(search);
         }
-        return (List<User>) userRepository.findAll();
+
+        return allUsers();
     }
 
     public User updateUser(Integer userID, UserUpdateRequest request) throws Exception {

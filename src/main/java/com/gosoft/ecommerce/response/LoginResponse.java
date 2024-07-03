@@ -12,11 +12,9 @@ import lombok.Setter;
 public class LoginResponse {
     private String accessToken;
     private long expiresIn;
-    private String role;
 
-    public LoginResponse(String accessToken, long expiresIn, String role) {
+    public LoginResponse(String accessToken, long expiresIn) {
         this.accessToken = accessToken;
         this.expiresIn = expiresIn;
-        this.role = role;
     }
 }

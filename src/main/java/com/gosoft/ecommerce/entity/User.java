@@ -86,11 +86,16 @@ public class User implements UserDetails {
         return true;
     }
 
-    public User(String firstName, String lastName, String email, String password) {
+    public User(String firstName, String lastName, String email, String password, String role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.role = "USER";
+        if(role == null || role.isEmpty() || role.isBlank()){
+            this.role = "USER";
+        } else {
+            this.role = role;
+        }
+
     }
 }
