@@ -1,17 +1,22 @@
 package com.gosoft.ecommerce.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class LoginResponse {
-    private String token;
-
+    private String accessToken;
     private long expiresIn;
+    private String role;
 
-    public LoginResponse(String token, long expiresIn) {
-        this.token = token;
+    public LoginResponse(String accessToken, long expiresIn, String role) {
+        this.accessToken = accessToken;
         this.expiresIn = expiresIn;
+        this.role = role;
     }
 }

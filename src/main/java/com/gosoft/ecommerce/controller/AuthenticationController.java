@@ -42,7 +42,7 @@ public class AuthenticationController {
         });
         String jwtToken = jwtService.generateToken(map,authenticatedUser);
 
-        LoginResponse loginResponse = new LoginResponse(jwtToken,jwtService.getExpirationTime());
+        LoginResponse loginResponse = new LoginResponse(jwtToken,jwtService.getExpirationTime(), authenticatedUser.getRole());
 
         return ResponseEntity.ok(loginResponse);
     }

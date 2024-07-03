@@ -41,6 +41,9 @@ public class User implements UserDetails {
     @Column(nullable = false, name = "[password]")
     private String password;
 
+    @Column(nullable = false, name = "[role]")
+    private String role;
+
     @CreationTimestamp
     @Column(updatable = false, name = "createdAt")
     private Date createdAt;
@@ -88,5 +91,6 @@ public class User implements UserDetails {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.role = "USER";
     }
 }
