@@ -25,6 +25,14 @@ public class UserService {
         return users;
     }
 
+    public Optional<User> getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    public Optional<User> getUserByID(Integer userID) {
+        return userRepository.findById(userID);
+    }
+
     public List<User> searchUsers(String search) {
         if (search != null && !search.isBlank() && !search.isEmpty()){
             return userRepository.findByEmailOrFirstNameOrLastNameLike(search);
@@ -38,6 +46,8 @@ public class UserService {
         User user = userRepository.findById(userID).orElseThrow(() -> new Exception("User not found"));
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
+        user.setEmail(request.getEmail());
+        user.setRole(request.getRole());
 
         return userRepository.save(user);
     }
